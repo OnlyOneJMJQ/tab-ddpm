@@ -7,6 +7,8 @@ import shutil
 import argparse
 from pathlib import Path
 
+azure_data_dir = "azureml://subscriptions/59965a50-4f1f-4cc3-a640-eb41e41c0101/resourcegroups/Obtego/workspaces/tab-ddpm/datastores/workspaceblobstore/paths/UI/2023-12-15_202041_UTC/data"
+
 parser = argparse.ArgumentParser()
 parser.add_argument('ds_name', type=str)
 parser.add_argument('train_size', type=int)
@@ -23,9 +25,9 @@ assert eval_type in ('merged', 'synthetic')
 prefix = str(args.prefix)
 
 pipeline = f'scripts/pipeline.py'
-base_config_path = f'exp/{ds_name}/config.toml'
-parent_path = Path(f'exp/{ds_name}/')
-exps_path = Path(f'exp/{ds_name}/many-exps/') # temporary dir. maybe will be replaced with tempdiвdr
+base_config_path = f'exp/{azure_data_dir}/{ds_name}/config.toml'
+parent_path = Path(f'exp/{azure_data_dir}/{ds_name}/')
+exps_path = Path(f'exp/{azure_data_dir}/{ds_name}/many-exps/') # temporary dir. maybe will be replaced with tempdiвdr
 eval_seeds = f'scripts/eval_seeds.py'
 
 os.makedirs(exps_path, exist_ok=True)
