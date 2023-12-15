@@ -1,6 +1,6 @@
 seed = 1
 parent_dir = "exp/churn2/check"
-real_data_path = "azureml://subscriptions/59965a50-4f1f-4cc3-a640-eb41e41c0101/resourcegroups/Obtego/workspaces/tab-ddpm/datastores/workspaceblobstore/paths/UI/2023-12-15_202041_UTC/data/churn2/"
+real_data_path = "data/churn2/"
 model_type = "mlp"
 num_numerical_features = 7
 device = "cuda:1"

@@ -44,12 +44,14 @@ def main():
     timer.run()
     save_file(os.path.join(raw_config['parent_dir'], 'config.toml'), args.config)
 
+    azure_data_path = "azureml://subscriptions/59965a50-4f1f-4cc3-a640-eb41e41c0101/resourcegroups/Obtego/workspaces/tab-ddpm/datastores/workspaceblobstore/paths/UI/2023-12-15_202041_UTC/data/churn2/"
+
     if args.train:
         train(
             **raw_config['train']['main'],
             **raw_config['diffusion_params'],
             parent_dir=raw_config['parent_dir'],
-            real_data_path=raw_config['real_data_path'],
+            real_data_path=azure_data_path,
             model_type=raw_config['model_type'],
             model_params=raw_config['model_params'],
             T_dict=raw_config['train']['T'],
@@ -64,7 +66,7 @@ def main():
             disbalance=raw_config['sample'].get('disbalance', None),
             **raw_config['diffusion_params'],
             parent_dir=raw_config['parent_dir'],
-            real_data_path=raw_config['real_data_path'],
+            real_data_path=azure_data_path,
             model_path=os.path.join(raw_config['parent_dir'], 'model.pt'),
             model_type=raw_config['model_type'],
             model_params=raw_config['model_params'],
@@ -75,12 +77,12 @@ def main():
             change_val=args.change_val
         )
 
-    save_file(os.path.join(raw_config['parent_dir'], 'info.json'), os.path.join(raw_config['real_data_path'], 'info.json'))
+    save_file(os.path.join(raw_config['parent_dir'], 'info.json'), os.path.join(azure_data_path, 'info.json'))
     if args.eval:
         if raw_config['eval']['type']['eval_model'] == 'catboost':
             train_catboost(
                 parent_dir=raw_config['parent_dir'],
-                real_data_path=raw_config['real_data_path'],
+                real_data_path=azure_data_path,
                 eval_type=raw_config['eval']['type']['eval_type'],
                 T_dict=raw_config['eval']['T'],
                 seed=raw_config['seed'],
@@ -89,7 +91,7 @@ def main():
         elif raw_config['eval']['type']['eval_model'] == 'mlp':
             train_mlp(
                 parent_dir=raw_config['parent_dir'],
-                real_data_path=raw_config['real_data_path'],
+                real_data_path=azure_data_path,
                 eval_type=raw_config['eval']['type']['eval_type'],
                 T_dict=raw_config['eval']['T'],
                 seed=raw_config['seed'],
@@ -99,7 +101,7 @@ def main():
         elif raw_config['eval']['type']['eval_model'] == 'simple':
             train_simple(
                 parent_dir=raw_config['parent_dir'],
-                real_data_path=raw_config['real_data_path'],
+                real_data_path=azure_data_path,
                 eval_type=raw_config['eval']['type']['eval_type'],
                 T_dict=raw_config['eval']['T'],
                 seed=raw_config['seed'],
