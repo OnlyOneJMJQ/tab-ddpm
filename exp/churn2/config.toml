@@ -1,6 +1,6 @@
 seed = 1
 parent_dir = "exp/churn2/check"
-real_data_path = "data/churn2/"
+real_data_path = "https://tabddpm8262502818.blob.core.windows.net/azureml-blobstore-110c9085-d988-43d0-bfee-1106e0775f7b/UI/2023-12-15_202041_UTC/data/churn2/"
 model_type = "mlp"
 num_numerical_features = 7
 device = "cuda:1"
